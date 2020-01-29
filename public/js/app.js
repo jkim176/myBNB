@@ -1991,7 +1991,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.loading = true;
     var request = axios.get("/api/bookables/".concat(this.$route.params.id)).then(function (response) {
-      _this.bookable = response.data;
+      _this.bookable = response.data.data;
       _this.loading = false;
     });
   }
@@ -2109,21 +2109,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.loading = true;
-    /*
-    const p = new Promise((resolve, reject) => {
-        console.log(resolve);
-        console.log(reject);
-        setTimeout(() => resolve("!the result"), 3000);
-    })
-        .then(result => "Hello again " + result)
-        .then(result => console.log(result))
-        .catch(result => console.log(`Error ${result}`));
-      console.log(p);
-    */
-    // axios.get returns a Promise
-
     var request = axios.get("/api/bookables").then(function (response) {
-      _this.bookables = response.data;
+      _this.bookables = response.data.data;
       _this.loading = false;
     });
     console.log(request);
