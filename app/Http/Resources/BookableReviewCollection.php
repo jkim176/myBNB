@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class BookableCollection extends ResourceCollection
+class BookableReviewCollection extends ResourceCollection
 {
     public function toArray($request)
     {

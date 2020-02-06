@@ -6,19 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Bookable;
+use App\Http\Resources\BookableReviewCollection;
+use App\Http\Resources\BookableReviewResource;
 
 class BookableReviewController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke($id, Request $request)
     {
         $bookable = Bookable::findOrFail($id);
 
-        return $bookable->reviews()->latest()->get();
+        return new BookableReviewCollection(
+            $bookable->reviews()->latest()->get()
+        );
     }
 }
