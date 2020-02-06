@@ -2,27 +2,51 @@
     <div style="padding: 1.25rem">
         <h6 class="text-uppercase text-secondary font-weight-bolder pt-4">Review List</h6>
 
-        <div class="border-bottom d-none d-md-block" v-for="number in 4" :key="number">
-            <div class="row pt-4">
-                <div class="col-md-6">
-                    User Name
+        <div v-if="loading">Loading...</div>
+        <div v-else>
+            <div class="border-bottom d-none d-md-block" v-for="(review, index) in reviews" :key="index">
+                <div class="row pt-4">
+                    <div class="col-md-6">
+                        (placeholder)User Name
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        {{ review.rating }}
+                    </div>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
-                    Star Rating
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    Added time ago
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ review.created_at }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="row pt-4 pb-4">
-                <div class="col-md-12">
-                    Review Content
+                <div class="row pt-4 pb-4">
+                    <div class="col-md-12">
+                        {{ review.content }}
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                loading: false,
+                reviews: null
+            }
+        },
+        props: {
+            bookableId: String
+        },
+        created() {
+            this.loading = true;
+            axios.get(`/api/bookables/${this.bookableId}/reviews`)
+                .then(response => this.reviews = response.data.data)
+                .then(() => this.loading = false);
+        }
+    }
+</script>
